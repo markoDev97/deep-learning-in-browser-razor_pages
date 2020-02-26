@@ -1,0 +1,52 @@
+﻿@page
+@model PatternRecognitionProject.TrainModel
+@{
+
+}
+
+<h1>Тренирај модел</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <h3>Форма за тренирање на нов модел</h3>
+        <form method="post">
+            <div class="form-group">
+                <label class="control-label">Рата на учење:</label>
+                <input name="learningRate" class="form-control" />
+                <label class="control-label">Број на епохи:</label>
+                <input type="number" name="noEpochs" class="form-control" />
+                <label class="control-label">Рамка за невронска мрежа:</label>
+                <select name="framework" class="form-control">
+                    <option value="keras">Keras</option>
+                    <option value="convnetsharp">ConvNetSharp</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Внеси поставки и истренирај модел</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6 offset-md-2">
+        <figure>
+            <h3><figcaption>Последниот истрениран модел</figcaption></h3>
+            <img src="~/AccuracyPlot.jpg" />
+        </figure>
+    </div>
+</div>
+<hr />
+@if (Model.ButtonSingleton.Show)
+{
+    <div class="row">
+        <div class="col-md-4">
+            <form method="post" asp-page-handler="Picture">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Сликај се и добиј класификација</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    @if (Model.Class != -1)
+    {
+        <span>Вашата слика припаѓа на класа број @Model.Class.</span>
+    }
+}

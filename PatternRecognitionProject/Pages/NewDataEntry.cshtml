@@ -1,0 +1,48 @@
+﻿@page
+@model PatternRecognitionProject.NewDataEntryModel
+
+@{
+    ViewData["Title"] = "NewDataEntry";
+}
+
+
+<h1>Сликај се за да го подобриш класификаторот</h1>
+
+<p><strong>Важно: </strong>Откако ќе се сликаш, <strong>задолжително</strong> внеси класна лабела.</p>
+<br />
+<p>
+    <b>Класни ознаки и значење:</b>
+    <ul>
+        <li>0 - нема никаков гест (или барем нема каков што се бара)</li>
+        <li>1 - метал знак</li>
+        <li>2 - мир</li>
+        <li>3 - бокс</li>
+    </ul>
+</p>
+<p>Големина на податочно множество: @Model.DatasetSize</p>
+<form method="post" asp-page-handler="Picture">
+    <button class="btn btn-info">Сликај се</button>
+</form>
+<div class="row">
+    <div class="col-md-4">
+        @if (Model.ImageFileName != null)
+        {
+            <img src="~/@Model.ImageFileName" />
+            <form method="post" asp-page-handler="Final">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="DataUnit.ClassLabel" class="control-label"></label>
+                    <input asp-for="DataUnit.ClassLabel" class="form-control" />
+                    <span asp-validation-for="DataUnit.ClassLabel" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Внеси нов податок" class="btn btn-primary" />
+                </div>
+            </form>
+         }
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
